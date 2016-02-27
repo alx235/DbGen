@@ -39,24 +39,4 @@ public class SqlUtil {
 			+ "WHERE  i.indrelid = regexp_replace(?, '''', '', 'g')::regclass\n"
 			+ "AND    i.indisprimary\n"
 			+ "ORDER  BY attnum)\n" + "ORDER  BY ispk DESC;";
-	
-/*	public static String metaTable = "(SELECT attname,format_type(atttypid, atttypmod) AS data_type,'~~pk' ispk\n"
-			+ "FROM   pg_attribute\n"
-			+ "WHERE  attrelid = \'films\'::regclass\n"
-			+ "AND    attnum > 0\n"
-			+ "AND    NOT attisdropped\n"
-			+ "ORDER  BY attnum)\n"
-			+ "\n"
-			+ "UNION\n"
-			+ "select '-1' as attname,'-1' as data_type, '~pk' as ispk\n"
-			+ "UNION\n"
-			+ "\n"
-			+ "(SELECT a.attname, format_type(a.atttypid, a.atttypmod) AS data_type,'pk' ispk\n"
-			+ "FROM   pg_index i\n"
-			+ "JOIN   pg_attribute a ON a.attrelid = i.indrelid\n"
-			+ "                     AND a.attnum = ANY(i.indkey)\n"
-			+ "WHERE  i.indrelid = \'films\'::regclass\n"
-			+ "AND    i.indisprimary\n"
-			+ "ORDER  BY attnum)\n" + "ORDER  BY ispk DESC;";*/
-
 }
