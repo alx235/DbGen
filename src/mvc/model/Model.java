@@ -14,7 +14,7 @@ import mvc.helper.SqlUtil;
 
 public class Model {
 
-	public static List<String> Query(/* String query, */String strObj,
+	public static List<String> Query(String strObj,
 			boolean addType) throws SQLException {
 
 		List<String> result = new ArrayList<String>();
