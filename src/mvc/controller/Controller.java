@@ -86,9 +86,9 @@ public class Controller extends HttpServlet {
 				if (iscreate)
 					query += tmp_ + ",\n";
 				if (isselect)
-					query += tmp_ + " ";
+					query += tmp_ + ", ";
 				if (isupdate)
-					query += tmp_ + "=? ";				
+					query += tmp_ + "=?, ";				
 			}
 			else// case false: add pk fields to query
 				if (isselect||isupdate)//add pk_f=? and ...
@@ -97,11 +97,15 @@ public class Controller extends HttpServlet {
 					pr_key_ += tmp_ + ",";// PK(pk_f,...)
 		}
 		//merge ~pk and pk query's parts
-		if (iscreate)
-			query += pr_key_.substring(0, pr_key_.length() - 1) + ")\n);";
+		if (iscreate) {
+			String tmp2_ = pr_key_.substring(0, pr_key_.length() - 1) + ")";
+			query += tmp2_ + "\n);";
+			//ALTER TABLE X ADD PRIMARY KEY (X1);
+			query += "/*ALTER TABLE " + fullname + " ADD " + tmp2_ + "*/";
+		}
 		if (isselect||isupdate)
 			query = 
-				query.substring(0, query.length() - 1)
+				query.substring(0, query.length() - 2)
 					+ ((isselect)? "\nfrom " + fullname: "")
 					 + "\nwhere "
 					 	+ pr_key_.substring(0, pr_key_.length() - 5);
